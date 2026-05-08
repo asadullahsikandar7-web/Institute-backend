@@ -23,7 +23,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://https://institute-portal-psi.vercel.app/",
+      "https://institute-portal-psi.vercel.app",
     ],
     credentials: true,
   })
@@ -34,8 +34,7 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => {
-    console.log("❌ Mongo Error:", err);
-    process.exit(1);
+    console.log("❌ Mongo Error:", err.message);
   });
 
 // Routes
