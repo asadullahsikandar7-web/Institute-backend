@@ -74,9 +74,12 @@ const upload = multer({
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://your-frontend.vercel.app" // 🔴 CHANGE THIS
+    "http://localhost:5173",
+    "https://institute-portal-psi.vercel.app"
   ],
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());
