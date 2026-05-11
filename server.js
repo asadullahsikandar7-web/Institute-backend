@@ -50,6 +50,12 @@ mongoose
   });
 
 // Routes
+app.get("/", (req, res) => {
+  res.send("Hello from Node.js!");
+});
+app.get("/favicon.ico", (req, res) => res.status(204).end());
+app.get("/favicon.png", (req, res) => res.status(204).end())
+
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/students", studentRoutes);
@@ -63,10 +69,6 @@ app.use("/api/grades", gradeRoutes);
 app.use("/api/exams", examRoutes);
 app.use("/api/analytics", analyticsRoutes);
 
-// Health Check Route
-app.get("/", (req, res) => {
-  res.send("✅ Backend Running Successfully");
-});
 
 // 404 Handler
 app.use((req, res) => {
