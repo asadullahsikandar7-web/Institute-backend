@@ -1,6 +1,6 @@
-import express from "express";
-import Attendance from "../models/attendanceModel.js";
-import { auth } from "../routes/middleware/auth.js";  // ✅ FIXED IMPORT
+const express = require("express");
+const Attendance = require("../models/attendanceModel.js");
+const { auth } = require("../middleware/auth.js");
 
 const router = express.Router();
 
@@ -59,4 +59,4 @@ router.get("/history/:studentId", auth("student"), async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

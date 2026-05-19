@@ -1,7 +1,8 @@
-import express from "express";
-import bcrypt from "bcrypt";
-import { auth } from "../routes/middleware/auth.js";
-import Student from "../models/studentModel.js";
+const express = require("express");
+const Student = require("../models/studentModel.js");
+const { auth } = require("../middleware/auth.js");
+const multer = require("multer");
+const path = require("path");
 
 const router = express.Router();
 
@@ -91,4 +92,4 @@ router.delete("/:id", auth("admin"), async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

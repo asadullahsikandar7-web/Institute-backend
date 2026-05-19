@@ -1,7 +1,7 @@
-import express from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import Admin from "../models/adminModel.js";
+const express = require("express");
+const bcrypt= require ("bcrypt");
+const jwt = require("jsonwebtoken");
+const Admin =require("../models/adminModel.js");
 
 const router = express.Router();
 const SECRET = process.env.JWT_SECRET || "super_secret_key";
@@ -232,4 +232,5 @@ router.delete("/admins/:id", superAdminAuth, async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
+

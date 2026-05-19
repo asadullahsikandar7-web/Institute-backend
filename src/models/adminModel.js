@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+const mongoose =require ("mongoose");
+const bcrypt =require ("bcrypt");
 
 const AdminSchema = new mongoose.Schema({
   email: {
@@ -46,4 +46,4 @@ AdminSchema.methods.toJSON = function() {
   return obj;
 };
 
-export default mongoose.model("Admin", AdminSchema);
+module.exports = mongoose.model("Admin", AdminSchema);

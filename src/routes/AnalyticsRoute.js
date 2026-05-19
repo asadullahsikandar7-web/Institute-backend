@@ -1,8 +1,7 @@
-import express from "express";
-import Attendance from "../models/attendanceModel.js";
-import Grade from "../models/GradeModel.js";
-import Student from "../models/studentModel.js";
-import { authMiddleware, adminOnly } from "../middleware/auth.js";
+const express = require("express");
+const Student = require("../models/studentModel.js");
+const Attendance = require("../models/attendanceModel.js");
+const { auth } = require("../middleware/auth.js");
 
 const router = express.Router();
 
@@ -108,4 +107,4 @@ router.get("/", authMiddleware, adminOnly, async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
-export default router;
+module.exports = router;

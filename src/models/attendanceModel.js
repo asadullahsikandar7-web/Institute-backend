@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose=require ("mongoose");
 
 const AttendanceSchema = new mongoose.Schema({
   studentId: { type: mongoose.Schema.Types.ObjectId, ref: "Student" },
@@ -6,4 +6,4 @@ const AttendanceSchema = new mongoose.Schema({
   status: String, // present | absent | leave
 });
 
-export default mongoose.model("Attendance", AttendanceSchema);
+module.exports = mongoose.model("Attendance", AttendanceSchema);

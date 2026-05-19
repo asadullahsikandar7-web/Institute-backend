@@ -1,5 +1,5 @@
 // models/Grade.js
-import mongoose from "mongoose";
+const mongoose =require ("mongoose");
 
 const gradeSchema = new mongoose.Schema({
   studentId: { type: mongoose.Schema.Types.ObjectId, ref: "Student", required: true },
@@ -10,4 +10,4 @@ const gradeSchema = new mongoose.Schema({
   date:      { type: Date,   default: Date.now },
 }, { timestamps: true });
 
-export default mongoose.model("Grade", gradeSchema);
+module.exports = mongoose.model("Grade", gradeSchema);  

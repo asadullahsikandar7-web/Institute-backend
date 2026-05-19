@@ -1,6 +1,6 @@
-import express from "express";
-import Class from "../models/classModel.js";
-import { auth } from "../routes/middleware/auth.js";
+const express = require("express");
+const Class = require("../models/ClassModel.js");
+const { auth } = require("../middleware/auth.js");
 
 const router = express.Router();
 
@@ -105,4 +105,4 @@ router.patch("/:id/students", auth("admin"), async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

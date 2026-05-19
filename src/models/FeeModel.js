@@ -1,5 +1,5 @@
 // models/Fee.js
-import mongoose from "mongoose";
+const mongoose =require ("mongoose");
 
 const feeSchema = new mongoose.Schema({
   studentId:  { type: mongoose.Schema.Types.ObjectId, ref: "Student", required: true },
@@ -17,4 +17,4 @@ feeSchema.pre(/^find/, function() {
       .updateMany({}, { $set: { status: "overdue" } }).exec().catch(() => {});
 });
 
-export default mongoose.model("Fee", feeSchema);
+module.exports = mongoose.model("Fee", feeSchema);

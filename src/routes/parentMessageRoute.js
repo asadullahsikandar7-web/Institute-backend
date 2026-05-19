@@ -1,6 +1,7 @@
-import express from "express";
-import ParentMessage from "../models/ParentMessagemodel.js";
-import { auth } from "../routes/middleware/auth.js";
+const express = require("express");
+const ParentMessage = require("../models/ParentMessageModel.js");
+const { auth } = require("../middleware/auth.js");
+const nodemailer = require("nodemailer");
 
 const router = express.Router();
 
@@ -125,4 +126,4 @@ router.delete("/:id", auth("admin"), async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

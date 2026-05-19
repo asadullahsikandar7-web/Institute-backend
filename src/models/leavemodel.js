@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require ("mongoose");
 
 const leaveSchema = new mongoose.Schema({
   studentId: { type: mongoose.Schema.Types.ObjectId, ref: "Student", required: true },
@@ -12,4 +12,4 @@ const leaveSchema = new mongoose.Schema({
   reviewedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" }
 });
 
-export default mongoose.model("Leave", leaveSchema);
+module.exports = mongoose.model("Leave", leaveSchema);

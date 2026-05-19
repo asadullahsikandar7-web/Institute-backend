@@ -1,6 +1,6 @@
-import express from "express";
-import Leave from "../models/leavemodel.js";
-import { auth } from "../routes/middleware/auth.js";
+const express =require( "express");
+const Leave =require ("../models/leavemodel.js");
+const { auth } = require ( "../routes/middleware/auth.js");
 
 const router = express.Router();
 
@@ -75,4 +75,4 @@ router.delete("/:id", auth(), async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

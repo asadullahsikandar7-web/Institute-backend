@@ -1,6 +1,6 @@
-import express from "express";
-import Notification from "../models/notificationModel.js";
-import { auth } from "../routes/middleware/auth.js";
+const express = require("express");
+const Notification = require("../models/NotificationModel.js");
+const { auth } = require("../middleware/auth.js");
 
 const router = express.Router();
 
@@ -108,4 +108,4 @@ router.delete("/:id", auth("admin"), async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
