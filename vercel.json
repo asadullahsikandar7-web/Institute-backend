@@ -5,7 +5,7 @@
       "src": "server.js",
       "use": "@vercel/node@3.0.0",
       "config": {
-        "nodeVersion": "24.x"
+        "nodeVersion": "20.x"
       }
     }
   ],
