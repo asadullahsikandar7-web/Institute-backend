@@ -165,38 +165,42 @@ app.use((err, req, res, next) => {
 });
 
 // ═══════════════════════════════════════════════════════════════
-//  SERVER STARTUP
+//  SERVER STARTUP (LOCAL DEVELOPMENT ONLY)
 // ═══════════════════════════════════════════════════════════════
 
-const PORT = process.env.PORT || 5000;
+// Only start server in local environment, not in Vercel serverless
+if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
-  console.log(`🗄️ Database: ${mongoose.connection.readyState === 1 ? "✅ Connected" : "❌ Connecting"}`);
-});
-
-// ═══════════════════════════════════════════════════════════════
-//  PROCESS ERROR HANDLERS
-// ═══════════════════════════════════════════════════════════════
-
-process.on("unhandledRejection", (err) => {
-  console.error("❌ Unhandled Rejection:", err);
-  process.exit(1);
-});
-
-process.on("uncaughtException", (err) => {
-  console.error("❌ Uncaught Exception:", err);
-  process.exit(1);
-});
-
-process.on("SIGTERM", () => {
-  console.log("⏹️ SIGTERM received, shutting down gracefully");
-  server.close(() => {
-    console.log("Server closed");
-    process.exit(0);
+  const server = app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
+    console.log(`🗄️ Database: ${mongoose.connection.readyState === 1 ? "✅ Connected" : "❌ Connecting"}`);
   });
-});
+
+  // Local error handlers
+  process.on("unhandledRejection", (err) => {
+    console.error("❌ Unhandled Rejection:", err);
+    process.exit(1);
+  });
+
+  process.on("uncaughtException", (err) => {
+    console.error("❌ Uncaught Exception:", err);
+    process.exit(1);
+  });
+
+  process.on("SIGTERM", () => {
+    console.log("⏹️ SIGTERM received, shutting down gracefully");
+    server.close(() => {
+      console.log("Server closed");
+      process.exit(0);
+    });
+  });
+} else {
+  // Vercel serverless: just log that we're ready
+  console.log(`🚀 Vercel serverless running`);
+  console.log(`📍 Environment: ${process.env.NODE_ENV}`);
+}
 
 // ═══════════════════════════════════════════════════════════════
 //  EXPORT FOR VERCEL SERVERLESS

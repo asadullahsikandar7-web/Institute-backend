@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 const Student = require("../models/studentModel.js");
 const { auth } = require("../middleware/auth.js");
 const multer = require("multer");

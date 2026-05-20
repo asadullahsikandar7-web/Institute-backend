@@ -1,6 +1,6 @@
-const express =require( "express");
-const Leave =require ("../models/leavemodel.js");
-const { auth } = require ( "../routes/middleware/auth.js");
+const express = require("express");
+const Leave = require("../models/leavemodel.js");
+const { auth } = require("../middleware/auth.js");
 
 const router = express.Router();
 

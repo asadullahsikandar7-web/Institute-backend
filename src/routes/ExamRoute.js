@@ -1,6 +1,6 @@
 const express = require("express");
 const Exam = require("../models/ExamModel.js");
-const { auth } = require("../middleware/auth.js");
+const { authMiddleware, adminOnly } = require("../middleware/auth.js");
 
 const router = express.Router();
 

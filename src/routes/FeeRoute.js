@@ -1,6 +1,7 @@
 const express = require("express");
 const Fee = require("../models/FeeModel.js");
-const { auth } = require("../middleware/auth.js");
+const Student = require("../models/studentModel.js");
+const { authMiddleware, adminOnly } = require("../middleware/auth.js");
 
 const router = express.Router();
 
