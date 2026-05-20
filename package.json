@@ -4,7 +4,7 @@
   "description": "Attendance Management System - Backend API",
   "main": "server.js",
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "scripts": {
     "start": "node server.js",
