@@ -1,5 +1,5 @@
 import express from "express";
-import ParentMessage from "../models/ParentMessageModel.js";
+import ParentMessage from "../models/ParentMessagemodel.js";
 import { auth } from "../middleware/auth.js";
 import nodemailer from "nodemailer";
 
