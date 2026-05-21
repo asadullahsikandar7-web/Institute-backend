@@ -1,5 +1,5 @@
-const express= require ("express");
-const jwt =require ("jsonwebtoken");
+import express from "express";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -65,4 +65,4 @@ router.post("/admin-login", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-module.exports = router;
+export default router;

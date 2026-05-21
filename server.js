@@ -1,11 +1,10 @@
 // ═══════════════════════════════════════════════════════════════
 //  PRODUCTION-READY SERVER.JS
 // ═══════════════════════════════════════════════════════════════
-
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
 
 // Load environment variables
 dotenv.config();
@@ -26,20 +25,19 @@ if (missingVars.length > 0) {
 // ═══════════════════════════════════════════════════════════════
 //  IMPORT ROUTES
 // ═══════════════════════════════════════════════════════════════
-
-const authRoutes = require("./src/routes/auth.js");
-const adminRoutes = require("./src/routes/adminRoute.js");
-const studentRoutes = require("./src/routes/studentRoute.js");
-const attendanceRoutes = require("./src/routes/attendanceRoute.js");
-const leaveRoutes = require("./src/routes/leaveroutes.js");
-const notificationRoutes = require("./src/routes/notificationRoute.js");
-const examRoutes = require("./src/routes/ExamRoute.js");
-const gradeRoutes = require("./src/routes/GradeRoute.js");
-const feeRoutes = require("./src/routes/FeeRoute.js");
-const timetableRoutes = require("./src/routes/timetableRoute.js");
-const classRoutes = require("./src/routes/classRoute.js");
-const analyticsRoutes = require("./src/routes/AnalyticsRoute.js");
-const parentMessageRoutes = require("./src/routes/parentMessageRoute.js");
+import authRoutes from "./src/routes/auth.js";
+import adminRoutes from "./src/routes/adminRoute.js";
+import studentRoutes from "./src/routes/studentRoute.js";
+import attendanceRoutes from "./src/routes/attendanceRoute.js";
+import leaveRoutes from "./src/routes/leaveroutes.js";
+import notificationRoutes from "./src/routes/notificationRoute.js";
+import examRoutes from "./src/routes/ExamRoute.js";
+import gradeRoutes from "./src/routes/GradeRoute.js";
+import feeRoutes from "./src/routes/FeeRoute.js";
+import timetableRoutes from "./src/routes/timetableRoute.js";
+import classRoutes from "./src/routes/classRoute.js";
+import analyticsRoutes from "./src/routes/AnalyticsRoute.js";
+import parentMessageRoutes from "./src/routes/parentMessageRoute.js";
 
 // ═══════════════════════════════════════════════════════════════
 //  EXPRESS APP SETUP
@@ -74,11 +72,9 @@ app.use(cors({
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
-      maxPoolSize: 10,
-      minPoolSize: 2,
-      serverSelectionTimeoutMS: 5000,
-      retryWrites: true,
-    });
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
     console.log("✅ MongoDB Connected Successfully");
   } catch (err) {
     console.error("❌ MongoDB Connection Failed:", err.message);
@@ -205,5 +201,4 @@ if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
 // ═══════════════════════════════════════════════════════════════
 //  EXPORT FOR VERCEL SERVERLESS
 // ═══════════════════════════════════════════════════════════════
-
-module.exports = app;
+export default app;

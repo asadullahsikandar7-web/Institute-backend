@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 // Get student timetable
@@ -22,5 +22,4 @@ router.get("/class/:classId", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-module.exports = router;
+export default router;

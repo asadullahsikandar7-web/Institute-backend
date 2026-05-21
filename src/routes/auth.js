@@ -1,9 +1,8 @@
-const express = require("express");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
-const Student = require("../models/studentModel.js");
-const Admin = require("../models/adminModel.js");
+import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import Student from "../models/studentModel.js";
+import Admin from "../models/adminModel.js";
 
 const router = express.Router();
 
@@ -100,5 +99,4 @@ router.post("/admin-login", async (req, res) => {
     });
   }
 });
-
-module.exports = router;
+export default router;

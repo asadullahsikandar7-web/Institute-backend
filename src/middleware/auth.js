@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const Admin = require("../models/adminModel.js");
+import jwt from "jsonwebtoken";
+import Admin from "../models/adminModel.js";
 
 const auth = (role) => {
   return (req, res, next) => {
@@ -26,5 +26,4 @@ const auth = (role) => {
 
 const authMiddleware = auth("admin");
 const adminOnly = auth("admin");
-
-module.exports = { auth, authMiddleware, adminOnly };
+export {auth, authMiddleware, adminOnly};

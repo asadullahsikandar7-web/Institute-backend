@@ -1,4 +1,4 @@
-const mongoose =require ("mongoose");
+import mongoose from "mongoose";
 
 // ══════════════════════════════════════════════════════════════
 //  CLASS MANAGEMENT MODEL — Daily class scheduling
@@ -36,5 +36,4 @@ const ClassSchema = new mongoose.Schema({
 ClassSchema.index({ semester: 1 });
 // classCode already has unique: true, no need for explicit index
 ClassSchema.index({ scheduleDay: 1, scheduleTime: 1 });
-
-module.exports = mongoose.model("Class", ClassSchema);
+export default mongoose.model("Class", ClassSchema);

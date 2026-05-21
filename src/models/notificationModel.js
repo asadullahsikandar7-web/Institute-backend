@@ -1,4 +1,4 @@
-const mongoose=require  ("mongoose");
+import mongoose from "mongoose";
 
 // ══════════════════════════════════════════════════════════════
 //  NOTIFICATION MODEL — Real-time notifications
@@ -41,5 +41,4 @@ const NotificationSchema = new mongoose.Schema({
 
 NotificationSchema.index({ recipientId: 1, createdAt: -1 });
 NotificationSchema.index({ sentAt: -1 });
-
-module.exports = mongoose.model("Notification", NotificationSchema);
+export default mongoose.model("Notification", NotificationSchema);

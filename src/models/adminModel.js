@@ -1,5 +1,5 @@
-const mongoose =require ("mongoose");
-const bcrypt =require ("bcrypt");
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const AdminSchema = new mongoose.Schema({
   email: {
@@ -40,10 +40,9 @@ AdminSchema.pre("save", async function (next) {
 });
 
 // Prevent password from being returned in queries
-AdminSchema.methods.toJSON = function() {
+AdminSchema.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;
   return obj;
 };
-
-module.exports = mongoose.model("Admin", AdminSchema);
+export default mongoose.model("Admin", AdminSchema);

@@ -1,6 +1,6 @@
-const express = require("express");
-const Leave = require("../models/leavemodel.js");
-const { auth } = require("../middleware/auth.js");
+import express from "express";
+import Leave from "../models/leavemodel.js";
+import { auth } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -74,5 +74,4 @@ router.delete("/:id", auth(), async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-module.exports = router;
+export default router;

@@ -1,6 +1,6 @@
-const express = require("express");
-const Exam = require("../models/ExamModel.js");
-const { authMiddleware, adminOnly } = require("../middleware/auth.js");
+import express from "express";
+import Exam from "../models/ExamModel.js";
+import { authMiddleware, adminOnly } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -32,5 +32,4 @@ router.post("/", authMiddleware, adminOnly, async (req, res) => {
     res.status(201).json({ exam: { ...exam.toObject(), emailStatus: emailCount ? "sent" : "failed", emailCount } });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
-
-module.exports = router;
+export default router;

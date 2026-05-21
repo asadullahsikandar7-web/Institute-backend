@@ -1,19 +1,20 @@
 // ═══════════════════════════════════════════════════════════════
 //  server.js  —  EduTrack Pro Complete Backend (FIXED)
 // ═══════════════════════════════════════════════════════════════
+import express from "express";
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import cors from "cors";
+import nodemailer from "nodemailer";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
+import dotenv from "dotenv";
 
-const express  = require("express");
-const mongoose = require("mongoose");
-const bcrypt   = require("bcryptjs");
-const jwt      = require("jsonwebtoken");
-const cors     = require("cors");
-const nodemailer = require("nodemailer");
-const multer   = require("multer");
-const path     = require("path");
-const fs       = require("fs");
-require("dotenv").config();
+dotenv.config();
 
-const app  = express();
+const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ══════════════════════════════════════════════════════════════
@@ -89,7 +90,10 @@ app.use(express.static(uploadsDir));
 //  MONGODB CONNECTION (FIXED SINGLE CONNECTION)
 // ══════════════════════════════════════════════════════════════
 
-mongoose.connect(MONGO_URI)
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => {
     console.error("❌ MongoDB error:", err.message);

@@ -1,7 +1,7 @@
-const express = require("express");
-const ParentMessage = require("../models/ParentMessageModel.js");
-const { auth } = require("../middleware/auth.js");
-const nodemailer = require("nodemailer");
+import express from "express";
+import ParentMessage from "../models/ParentMessageModel.js";
+import { auth } from "../middleware/auth.js";
+import nodemailer from "nodemailer";
 
 const router = express.Router();
 
@@ -125,5 +125,4 @@ router.delete("/:id", auth("admin"), async (req, res) => {
     res.status(500).json({ error: "Failed to delete message: " + err.message });
   }
 });
-
-module.exports = router;
+export default router;

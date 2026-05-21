@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const studentSchema = new mongoose.Schema(
   {
@@ -64,5 +64,4 @@ studentSchema.methods.toSafeObject = function() {
   delete obj.password;
   return obj;
 };
-
-module.exports = mongoose.model("Student", studentSchema);
+export default mongoose.model("Student", studentSchema);

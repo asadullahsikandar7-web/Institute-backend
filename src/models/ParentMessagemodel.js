@@ -1,4 +1,4 @@
-const mongoose =require ("mongoose");
+import mongoose from "mongoose";
 
 const ParentMessageSchema = new mongoose.Schema({
   studentId:   { type: mongoose.Schema.Types.ObjectId, ref: "Student", required: true },
@@ -12,5 +12,4 @@ const ParentMessageSchema = new mongoose.Schema({
   author:      String,
   emailStatus: { type: String, enum: ["sent","failed","pending"], default: "pending" },
 }, { timestamps: true });
-
-module.exports = mongoose.model("ParentMessage", ParentMessageSchema);
+export default mongoose.model("ParentMessage", ParentMessageSchema);
