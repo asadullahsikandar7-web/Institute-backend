@@ -45,4 +45,5 @@ AdminSchema.methods.toJSON = function () {
   delete obj.password;
   return obj;
 };
-export default mongoose.model("Admin", AdminSchema);
+const Admin = mongoose.models.Admin || mongoose.model("Admin", AdminSchema);
+export default Admin;

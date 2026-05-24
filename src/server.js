@@ -90,10 +90,7 @@ app.use(express.static(uploadsDir));
 //  MONGODB CONNECTION (FIXED SINGLE CONNECTION)
 // ══════════════════════════════════════════════════════════════
 
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => {
     console.error("❌ MongoDB error:", err.message);

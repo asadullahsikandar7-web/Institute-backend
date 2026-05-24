@@ -53,10 +53,7 @@ const studentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Indexes for common queries
-studentSchema.index({ rollNo: 1 });
-studentSchema.index({ email: 1 });
-studentSchema.index({ parentEmail: 1 });
+// No explicit indexes here to avoid duplicate index warnings.
 
 // Method to return safe object without password
 studentSchema.methods.toSafeObject = function() {
@@ -64,4 +61,5 @@ studentSchema.methods.toSafeObject = function() {
   delete obj.password;
   return obj;
 };
-export default mongoose.model("Student", studentSchema);
+const Student = mongoose.models.Student || mongoose.model("Student", studentSchema);
+export default Student;
