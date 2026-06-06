@@ -9,6 +9,24 @@ import dotenv from "dotenv";
 // Load environment variables
 dotenv.config();
 
+// Runtime shim: ensure `bson` exposes on-demand helpers expected by the mongodb driver
+import { createRequire } from 'module';
+const __require = createRequire(import.meta.url);
+try {
+  const bsonModule = __require('bson');
+  if (bsonModule && typeof bsonModule.parseToElementsToArray !== 'function') {
+    const maybeBSON = bsonModule.BSON ?? bsonModule;
+    if (maybeBSON && maybeBSON.onDemand && typeof maybeBSON.onDemand.parseToElements === 'function') {
+      bsonModule.parseToElementsToArray = function (bytes, offset) {
+        const res = maybeBSON.onDemand.parseToElements(bytes, offset);
+        return Array.isArray(res) ? res : [...res];
+      };
+    }
+  }
+} catch (e) {
+  // If require fails (package not present or ESM-only), ignore — mongodb's internal wrapper will handle it.
+}
+
 // Minimal startup diagnostics — avoid requiring mongodb/bson directly because
 // some package export maps prevent reading package.json or internal helpers
 try {
