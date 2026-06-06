@@ -2,16 +2,15 @@
 //  PRODUCTION-READY SERVER.JS
 // ═══════════════════════════════════════════════════════════════
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import { createRequire } from 'module';
+const __require = createRequire(import.meta.url);
 
 // Load environment variables
 dotenv.config();
 
 // Runtime shim: ensure `bson` exposes on-demand helpers expected by the mongodb driver
-import { createRequire } from 'module';
-const __require = createRequire(import.meta.url);
 try {
   const bsonModule = __require('bson');
   if (bsonModule && typeof bsonModule.parseToElementsToArray !== 'function') {
@@ -25,6 +24,15 @@ try {
   }
 } catch (e) {
   // If require fails (package not present or ESM-only), ignore — mongodb's internal wrapper will handle it.
+}
+
+// Load mongoose after the shim so mongodb/bson are resolved to the patched module
+let mongoose = null;
+try {
+  mongoose = __require('mongoose');
+  mongoose = mongoose && mongoose.default ? mongoose.default : mongoose;
+} catch (e) {
+  console.error('Unable to require mongoose at startup:', e && e.message);
 }
 
 // Minimal startup diagnostics — avoid requiring mongodb/bson directly because
