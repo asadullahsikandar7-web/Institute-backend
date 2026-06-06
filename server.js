@@ -9,6 +9,15 @@ import dotenv from "dotenv";
 // Load environment variables
 dotenv.config();
 
+// Minimal startup diagnostics — avoid requiring mongodb/bson directly because
+// some package export maps prevent reading package.json or internal helpers
+try {
+  console.log(`Startup diagnostics: node=${process.version}, env=${process.env.NODE_ENV || 'development'}`);
+  if (mongoose && mongoose.version) console.log(`Startup diagnostics: mongoose@${mongoose.version}`);
+} catch (e) {
+  console.log('Startup diagnostics: unable to read runtime versions');
+}
+
 // ═══════════════════════════════════════════════════════════════
 //  ENVIRONMENT VALIDATION (FAIL FAST)
 // ═══════════════════════════════════════════════════════════════
