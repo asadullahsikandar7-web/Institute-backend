@@ -1,12 +1,5 @@
-import mongoose from "mongoose";
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const dbModule = require('./db.cjs');
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("MongoDB connected");
-  } catch (error) {
-    console.error("DB Error:", error.message);
-    process.exit(1);
-  }
-};
-export default connectDB;
+export default dbModule.connectDB;

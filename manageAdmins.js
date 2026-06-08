@@ -15,21 +15,14 @@ const mongoose = require ("mongoose");
 const bcrypt = require("bcryptjs");
 const dotenv = require ("dotenv");
 const Admin = require ( "./src/models/adminModel.js");
+const dbModule = require('./src/config/db.cjs');
 
 dotenv.config();
 
 const args = process.argv.slice(2);
 const command = args[0];
 
-async function connectDB() {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("✅ Connected to MongoDB");
-  } catch (err) {
-    console.error("❌ MongoDB connection error:", err.message);
-    process.exit(1);
-  }
-}
+// Using centralized DB connector (db.cjs)
 
 async function addAdmin(email, password, isSuper = false) {
   try {
@@ -144,7 +137,7 @@ async function demoteAdmin(email) {
 }
 
 async function main() {
-  await connectDB();
+  await dbModule.connectDB();
 
   if (!command) {
     console.log(`
@@ -212,7 +205,7 @@ Examples:
       process.exit(1);
   }
 
-  await mongoose.disconnect();
+  await dbModule.mongoose.disconnect();
   console.log("✅ Done");
 }
 

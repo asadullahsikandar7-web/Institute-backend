@@ -86,16 +86,21 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static(uploadsDir));
 
-// ══════════════════════════════════════════════════════════════
-//  MONGODB CONNECTION (FIXED SINGLE CONNECTION)
-// ══════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════=
+//  MONGODB CONNECTION (USING CENTRALIZED connectDB)
+// ═════════════════════════════════════════════════════════════=
 
-mongoose.connect(MONGO_URI)
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => {
-    console.error("❌ MongoDB error:", err.message);
-    process.exit(1);
-  });
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const dbModule = require('./src/config/db.cjs');
+
+try {
+  await dbModule.connectDB();
+  console.log("✅ MongoDB connected (via db.cjs)");
+} catch (err) {
+  console.error("❌ MongoDB error:", err && err.message);
+  process.exit(1);
+}
 
 // ══════════════════════════════════════════════════════════════
 //  EMAIL CONFIG (UNCHANGED)

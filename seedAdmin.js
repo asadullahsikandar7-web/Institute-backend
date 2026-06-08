@@ -1,23 +1,23 @@
-const  mongoose =require ("mongoose");
-const Admin =require ("./src/models/adminModel.js");
-const bcrypt = require("bcryptjs");
-const  dotenv = require ("dotenv");
+import bcrypt from "bcryptjs";
+import dotenv from "dotenv";
 
 dotenv.config();
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/attendance";
-
 const seedAdmins = async () => {
-  try {
-    await mongoose.connect(MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+  // Load shared DB helper (CJS) dynamically and connect first
+  const dbModule = (await import('./src/config/db.cjs')).default || (await import('./src/config/db.cjs'));
+  const { connectDB, mongoose } = dbModule;
 
-    console.log("✅ Connected to MongoDB");
+  try {
+    await connectDB();
+    console.log("✅ Connected to MongoDB (via db.cjs)");
 
     // Hash the password once
     const hashedPassword = await bcrypt.hash("admin123", 10);
+
+    // Import Admin model after mongoose is connected
+    const adminMod = await import("./src/models/adminModel.js");
+    const Admin = adminMod && adminMod.default ? adminMod.default : adminMod;
 
     const admins = [
       { email: "admin1@uni.edu", password: hashedPassword, isSuperAdmin: true },
@@ -30,11 +30,11 @@ const seedAdmins = async () => {
     console.log("✅ Admin users seeded successfully:");
     result.forEach(admin => console.log(`   - ${admin.email}`));
     console.log("✅ Password for both: admin123");
-    
-    mongoose.disconnect();
+
+    await mongoose.disconnect();
   } catch (err) {
-    console.error("❌ Error seeding admins:", err.message);
-    mongoose.disconnect();
+    console.error("❌ Error seeding admins:", err && err.message);
+    try { await mongoose.disconnect(); } catch (_) {}
   }
 };
 
