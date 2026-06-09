@@ -4,3 +4,6 @@ dist
 build
 uploads
 .DS_Store
+
+### Ignore Markdown files (user requested)
+*.md

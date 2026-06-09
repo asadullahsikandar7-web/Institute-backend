@@ -119,7 +119,22 @@ const transporter = nodemailer.createTransport({
 // ══════════════════════════════════════════════════════════════
 //  AUTH ROUTES (FIXED ADMIN LOGIN)
 // ══════════════════════════════════════════════════════════════
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Backend is running"
+  });
+});
 
+// favicon.png route
+app.get("/favicon.png", (req, res) => {
+  res.status(204).end();
+});
+
+// favicon.ico route
+app.get("/favicon.ico", (req, res) => {
+  res.status(204).end();
+});
 app.post("/api/auth/admin-login", async (req, res) => {
   try {
     const { email, password } = req.body;
